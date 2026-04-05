@@ -1,3 +1,23 @@
+# Hebrew trainer (עברית)
+
+Тренажёр иврита — React + Vite.
+
+## Первый push на GitHub
+
+Из этой среды автоматически отправить код нельзя без вашего токена. Один раз у себя в терминале:
+
+1. Создайте [Personal Access Token (classic)](https://github.com/settings/tokens) с правом **repo**.
+2. В папке проекта:
+   ```bash
+   export GITHUB_TOKEN=ghp_xxxxxxxx   # вставьте свой токен
+   npm run push:github
+   unset GITHUB_TOKEN
+   ```
+
+Или: `bash scripts/push-to-github.sh` после `export GITHUB_TOKEN=...`.
+
+---
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
