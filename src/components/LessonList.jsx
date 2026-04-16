@@ -2,6 +2,10 @@ import { LESSONS, loadProgress } from '../data/helpers'
 
 export default function LessonList({ onSelect, onBack }) {
   const progress = loadProgress()
+  const first = LESSONS[0]?.id
+  const last = LESSONS[LESSONS.length - 1]?.id
+  const rangeHint =
+    first != null && last != null ? `Уроки ${first}–${last} — слова только выбранного урока` : ''
 
   return (
     <div>
@@ -10,7 +14,7 @@ export default function LessonList({ onSelect, onBack }) {
         <h2>Выберите урок</h2>
       </div>
       <p className="text-secondary text-sm mb-8">
-        Материал уроков 20 до выбранного включительно
+        {rangeHint}
       </p>
       <div className="lesson-list">
         {LESSONS.map(l => {

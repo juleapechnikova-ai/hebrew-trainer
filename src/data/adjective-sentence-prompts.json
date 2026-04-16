@@ -1,0 +1,1090 @@
+{
+  "ציבורי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "אידאלי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "גדול": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "חדש": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "טוב": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "יפה": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "ישן": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "מיחד": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "מצין": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "נחמד": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "עתיק": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "קטן": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "אחר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "בשרי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "זול": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "חלבי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "ישראלי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "נכון": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "אורגני": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "נעים": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "קל": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "מענין": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "משגע": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "ספרדי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "ציוני": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "חולה": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "חם": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "כחול": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "כשר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "משעמם": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "קר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "קשה": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "שקט": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "בריא": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "מתוק": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "אחרון": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "חשוב": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "נהדר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "יקר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "עצוב": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "פשוט": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "קצר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "שמח": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "דתי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "צעיר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "שחור": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "טעים": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "מאחר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "קרוב": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "שמי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "אדום": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "מצחיק": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "אוניברסלי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "ארוך": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "גבוה": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "חום": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "חתיך": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "ירוק": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "לבן": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "נמוך": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "סגול": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "צהוב": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "קריר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "רוק": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "רזה": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "שמן": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "עיף": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "רע": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    },
+    {
+      "sentenceHe": "ימים ___ מגיעים בקיץ בחופש.",
+      "agreement": "mp"
+    },
+    {
+      "sentenceHe": "מילים ___ בטקסט בבית הספר.",
+      "agreement": "fp"
+    }
+  ],
+  "בטוח": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "מפרסם": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "נשוי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "רגיל": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "מרכזי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "אופטימי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "חזק": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "טפש": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "טרי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "מאשר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "נוח": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "חכם": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "נקי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "עשיר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "קדוש": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "רחוק": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "אוטונומי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "חופשי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "מאמין": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "סיני": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "טבעי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "עני": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "שמאלי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "חלוני": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ],
+  "שונה": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "אישי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "אמתי": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "חדר ___ בכיתה עם חלון גדול.",
+      "agreement": "ms"
+    }
+  ],
+  "זר": [
+    {
+      "sentenceHe": "בית ___ ליד בית הספר.",
+      "agreement": "ms"
+    },
+    {
+      "sentenceHe": "מכונית ___ חונה ליד בית הספר.",
+      "agreement": "fs"
+    }
+  ]
+}

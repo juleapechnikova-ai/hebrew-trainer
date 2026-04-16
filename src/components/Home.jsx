@@ -1,19 +1,42 @@
-export default function Home({ onLessons, onVerbs }) {
+export default function Home({ onLessons, onAllLessons, onRepetition, onVerbs, onAdjectives, streakCurrent, streakMax }) {
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 16 }}>
-      <h1 style={{ textAlign: 'center', fontSize: '1.6rem', marginBottom: 8 }}>
-        עברית מן ההתחלה
-      </h1>
-      <p className="text-center text-secondary" style={{ marginBottom: 24 }}>
-        Тренажёр иврита — уроки 20–28
-      </p>
+    <div className="home-screen">
+      <div className="home-brand">
+        <h1 className="home-title-he">עברית מן ההתחלה</h1>
+        <p className="home-subtitle">
+          Тренажёр иврита — уроки и общий режим
+        </p>
+      </div>
 
-      <button className="btn btn-primary btn-lg" onClick={onLessons}>
-        📚 Уроки
-      </button>
-      <button className="btn btn-outline btn-lg" onClick={onVerbs}>
-        🔤 Глаголы
-      </button>
+      <nav className="home-nav" aria-label="Главное меню">
+        <button type="button" className="nav-card nav-card--primary" onClick={onLessons}>
+          <span className="nav-card__icon" aria-hidden>📚</span>
+          <span className="nav-card__label">Уроки</span>
+        </button>
+        <button type="button" className="nav-card nav-card--surface" onClick={onAllLessons}>
+          <span className="nav-card__icon" aria-hidden>🌐</span>
+          <span className="nav-card__label">Все уроки</span>
+        </button>
+        <button type="button" className="nav-card nav-card--surface" onClick={onRepetition}>
+          <span className="nav-card__icon" aria-hidden>🔁</span>
+          <span className="nav-card__label">Повторение</span>
+        </button>
+        <button type="button" className="nav-card nav-card--surface" onClick={onVerbs}>
+          <span className="nav-card__icon" aria-hidden>🔤</span>
+          <span className="nav-card__label">Глаголы</span>
+        </button>
+        <button type="button" className="nav-card nav-card--surface" onClick={onAdjectives}>
+          <span className="nav-card__icon" aria-hidden>📝</span>
+          <span className="nav-card__label">Прилагательные</span>
+        </button>
+      </nav>
+
+      <footer className="home-streak" aria-label="Серия дней захода">
+        {streakCurrent > 0 ? <span className="home-streak__icon" aria-hidden>🔥</span> : null}
+        <span>
+          Подряд: <strong>{streakCurrent}</strong> дн. · Рекорд: <strong>{streakMax}</strong>
+        </span>
+      </footer>
     </div>
   )
 }

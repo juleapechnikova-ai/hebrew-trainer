@@ -1,15 +1,16 @@
-import { getLessonOnly, loadProgress } from '../data/helpers'
+import { ALL_LESSONS_ID, getWordPool, lessonLabel, loadProgress } from '../data/helpers'
 
 const MODES = [
   { id: 'flashcards', icon: '🃏', label: 'Карточки' },
   { id: 'quiz', icon: '✅', label: 'Тест' },
+  { id: 'errors-only', icon: '🎯', label: 'Только ошибки' },
   { id: 'pairs', icon: '🔗', label: 'Пары' },
   { id: 'voice', icon: '🎤', label: 'Голос' },
   { id: 'final-test', icon: '🏆', label: 'Итоговый тест' },
 ]
 
 export default function ModeSelect({ lessonId, direction, onDirection, onSelect, onBack }) {
-  const pool = getLessonOnly(lessonId)
+  const pool = getWordPool(lessonId)
   const progress = loadProgress()
   const testResult = progress[lessonId]
 
@@ -17,11 +18,11 @@ export default function ModeSelect({ lessonId, direction, onDirection, onSelect,
     <div>
       <div className="header">
         <button className="back-btn" onClick={onBack}>←</button>
-        <h2>Урок {lessonId}</h2>
+        <h2>{lessonLabel(lessonId)}</h2>
       </div>
 
       <p className="text-secondary text-sm mb-8">
-        {pool.length} слов в уроке
+        {pool.length} {lessonId === ALL_LESSONS_ID ? 'слов во всём курсе' : 'слов в уроке'}
       </p>
 
       <div className="direction-toggle">

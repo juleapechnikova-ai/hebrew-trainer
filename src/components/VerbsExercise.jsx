@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { getVerbsByBinyan, shuffle, normalize } from '../data/helpers'
 import pastTenseData from '../data/past-tense.json'
+import VerbSentenceFill from './VerbSentenceFill'
 
 export default function VerbsExercise({ binyan, onBack }) {
   const verbs = useMemo(() => shuffle(getVerbsByBinyan(binyan)), [binyan])
@@ -45,6 +46,10 @@ export default function VerbsExercise({ binyan, onBack }) {
             <div className="icon">🔗</div>
             <div className="label">Прошедшее время</div>
           </div>
+          <div className="mode-tile" onClick={() => setMode('sentence-fill')}>
+            <div className="icon">✏️</div>
+            <div className="label">Предложения (ב)</div>
+          </div>
         </div>
       </div>
     )
@@ -53,6 +58,7 @@ export default function VerbsExercise({ binyan, onBack }) {
   if (mode === 'flashcards') return <VerbFlashcards verbs={verbs} direction={direction} onBack={() => setMode(null)} />
   if (mode === 'quiz') return <VerbQuiz verbs={verbs} direction={direction} onBack={() => setMode(null)} />
   if (mode === 'past-pairs') return <VerbPastPairs onBack={() => setMode(null)} />
+  if (mode === 'sentence-fill') return <VerbSentenceFill binyan={binyan} onBack={() => setMode(null)} />
   return null
 }
 

@@ -1,12 +1,12 @@
 import { useState, useMemo, useRef, useCallback, useEffect } from 'react'
-import { getLessonOnly, shuffle, normalize } from '../data/helpers'
+import { getWordPool, lessonLabel, shuffle, normalize, recordWordError } from '../data/helpers'
 
 const SpeechRecognition = globalThis.SpeechRecognition || globalThis.webkitSpeechRecognition
 
 const PRAISE = ['Отлично! 🎉', 'Молодец! 👏', 'Супер! ⭐', 'Правильно! ✅', 'Верно! 💪', 'Круто! 🔥']
 
 export default function Voice({ lessonId, direction, onBack }) {
-  const pool = useMemo(() => shuffle(getLessonOnly(lessonId)), [lessonId])
+  const pool = useMemo(() => shuffle(getWordPool(lessonId)), [lessonId])
   const [idx, setIdx] = useState(0)
   const [recording, setRecording] = useState(false)
   const [recognized, setRecognized] = useState('')
@@ -55,6 +55,7 @@ export default function Voice({ lessonId, direction, onBack }) {
       }, 1500)
     } else {
       setResult('wrong')
+      recordWordError(item)
     }
   }
 
@@ -148,7 +149,7 @@ export default function Voice({ lessonId, direction, onBack }) {
       <div>
         <div className="header">
           <button className="back-btn" onClick={onBack}>←</button>
-          <h2>Голос — Урок {lessonId}</h2>
+          <h2>Голос — {lessonLabel(lessonId)}</h2>
         </div>
         <div className="card result-card">
           <p className="text-secondary">Результат</p>
@@ -197,7 +198,7 @@ export default function Voice({ lessonId, direction, onBack }) {
     <div>
       <div className="header">
         <button className="back-btn" onClick={onBack}>←</button>
-        <h2>Голос — Урок {lessonId}</h2>
+        <h2>Голос — {lessonLabel(lessonId)}</h2>
       </div>
 
       <div className="progress-bar">

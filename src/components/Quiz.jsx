@@ -1,8 +1,21 @@
 import { useState, useMemo } from 'react'
-import { getLessonOnly, shuffle, pickDistractors } from '../data/helpers'
+import {
+  getWordPool,
+  lessonLabel,
+  shuffle,
+  pickDistractors,
+  getErrorWordsFromPool,
+  recordWordError,
+  recordWordErrorResolved,
+} from '../data/helpers'
 
-export default function Quiz({ lessonId, direction, onBack }) {
-  const pool = useMemo(() => getLessonOnly(lessonId), [lessonId])
+export default function Quiz({ lessonId, direction, onBack, errorsOnly = false }) {
+  const fullPool = useMemo(() => getWordPool(lessonId), [lessonId])
+  const pool = useMemo(() => {
+    if (!errorsOnly) return fullPool
+    return getErrorWordsFromPool(fullPool)
+  }, [lessonId, fullPool, errorsOnly])
+
   const questions = useMemo(() => shuffle(pool), [pool])
   const [idx, setIdx] = useState(0)
   const [selected, setSelected] = useState(null)
@@ -17,16 +30,26 @@ export default function Quiz({ lessonId, direction, onBack }) {
 
   const options = useMemo(() => {
     if (!q) return []
-    const distractors = pickDistractors(q, pool)
+    const distractorPool = errorsOnly ? fullPool : pool
+    const distractors = pickDistractors(q, distractorPool)
     const opts = distractors.map(d => showRu ? d.he : d.ru)
     opts.push(correctAnswer)
     return shuffle(opts)
-  }, [idx, q, pool, showRu, correctAnswer])
+  }, [idx, q, pool, fullPool, showRu, correctAnswer, errorsOnly])
 
   function handleSelect(opt) {
-    if (selected !== null) return
+    if (selected !== null || !q) return
     setSelected(opt)
-    const newAnswers = [...answers, { prompt, correct: correctAnswer, answer: opt, promptIsHe, answerIsHe }]
+    const ok = opt === correctAnswer
+    if (!ok) {
+      recordWordError(q)
+    } else if (errorsOnly) {
+      recordWordErrorResolved(q)
+    }
+    const newAnswers = [
+      ...answers,
+      { prompt, correct: correctAnswer, answer: opt, promptIsHe, answerIsHe, item: q },
+    ]
     setAnswers(newAnswers)
     setTimeout(() => {
       setSelected(null)
@@ -40,6 +63,37 @@ export default function Quiz({ lessonId, direction, onBack }) {
     setAnswers([])
   }
 
+  const titleSuffix = errorsOnly ? ' — только ошибки' : ''
+  const label = lessonLabel(lessonId)
+
+  if (errorsOnly && fullPool.length && pool.length === 0) {
+    return (
+      <div>
+        <div className="header">
+          <button className="back-btn" onClick={onBack}>←</button>
+          <h2>Тест{titleSuffix} — {label}</h2>
+        </div>
+        <p className="text-secondary text-sm mb-8">
+          Пока нет записанных ошибок по этому объёму слов. Пройдите тест, пары, голос или итоговый тест — неверные ответы попадут сюда.
+        </p>
+        <button className="btn btn-secondary" onClick={onBack}>Назад к режимам</button>
+      </div>
+    )
+  }
+
+  if (!pool.length) {
+    return (
+      <div>
+        <div className="header">
+          <button className="back-btn" onClick={onBack}>←</button>
+          <h2>Тест{titleSuffix} — {label}</h2>
+        </div>
+        <p className="text-secondary">Нет слов для теста.</p>
+        <button className="btn btn-secondary mt-16" onClick={onBack}>Назад</button>
+      </div>
+    )
+  }
+
   if (idx >= questions.length) {
     const correctCount = answers.filter(a => a.answer === a.correct).length
     const wrongCount = answers.length - correctCount
@@ -50,7 +104,7 @@ export default function Quiz({ lessonId, direction, onBack }) {
       <div>
         <div className="header">
           <button className="back-btn" onClick={onBack}>←</button>
-          <h2>Тест — Урок {lessonId}</h2>
+          <h2>Тест{titleSuffix} — {label}</h2>
         </div>
 
         <div className="card result-card">
@@ -117,8 +171,14 @@ export default function Quiz({ lessonId, direction, onBack }) {
     <div>
       <div className="header">
         <button className="back-btn" onClick={onBack}>←</button>
-        <h2>Тест — Урок {lessonId}</h2>
+        <h2>Тест{titleSuffix} — {label}</h2>
       </div>
+
+      {errorsOnly && (
+        <p className="text-secondary text-sm mb-8">
+          Слова, в которых вы ошибались в других режимах. Верный ответ уменьшает «штраф» по слову.
+        </p>
+      )}
 
       <div className="progress-bar">
         <div className="progress-bar-fill" style={{ width: `${((idx + 1) / questions.length) * 100}%` }} />

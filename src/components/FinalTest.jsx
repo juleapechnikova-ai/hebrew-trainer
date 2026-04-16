@@ -1,10 +1,17 @@
 import { useState, useMemo } from 'react'
-import { getLessonOnly, shuffle, pickDistractors, normalize, saveTestResult } from '../data/helpers'
-
-const TEST_SIZE = 15
+import {
+  ALL_LESSONS_ID,
+  getWordPool,
+  lessonLabel,
+  shuffle,
+  pickDistractors,
+  saveTestResult,
+  recordFinalTestWordResults,
+  recordWordError,
+} from '../data/helpers'
 
 function generateQuestions(pool) {
-  const items = shuffle(pool).slice(0, TEST_SIZE)
+  const items = shuffle([...pool])
   return items.map((item, i) => {
     const showRu = i % 2 === 0
     const prompt = showRu ? item.ru : item.he
@@ -16,20 +23,25 @@ function generateQuestions(pool) {
 }
 
 export default function FinalTest({ lessonId, onBack }) {
-  const pool = useMemo(() => getLessonOnly(lessonId), [lessonId])
+  const pool = useMemo(() => getWordPool(lessonId), [lessonId])
   const [questions, setQuestions] = useState(() => generateQuestions(pool))
   const [idx, setIdx] = useState(0)
   const [answers, setAnswers] = useState([])
   const [finished, setFinished] = useState(false)
 
   function handleAnswer(opt) {
-    const newAnswers = [...answers, { question: questions[idx], answer: opt }]
+    const q = questions[idx]
+    if (opt !== q.correct) {
+      recordWordError(q.item)
+    }
+    const newAnswers = [...answers, { question: q, answer: opt }]
     setAnswers(newAnswers)
 
     if (idx + 1 >= questions.length) {
       const correct = newAnswers.filter(a => a.answer === a.question.correct).length
       const pct = Math.round((correct / questions.length) * 100)
       saveTestResult(lessonId, pct)
+      recordFinalTestWordResults(newAnswers)
       setFinished(true)
     } else {
       setIdx(idx + 1)
@@ -43,6 +55,19 @@ export default function FinalTest({ lessonId, onBack }) {
     setFinished(false)
   }
 
+  if (!pool.length) {
+    return (
+      <div>
+        <div className="header">
+          <button className="back-btn" onClick={onBack}>←</button>
+          <h2>Итоговый тест — {lessonLabel(lessonId)}</h2>
+        </div>
+        <p className="text-secondary">Нет слов для теста.</p>
+        <button className="btn btn-secondary mt-16" onClick={onBack}>Назад</button>
+      </div>
+    )
+  }
+
   if (finished) {
     const correctCount = answers.filter(a => a.answer === a.question.correct).length
     const wrongCount = questions.length - correctCount
@@ -52,7 +77,7 @@ export default function FinalTest({ lessonId, onBack }) {
       <div>
         <div className="header">
           <button className="back-btn" onClick={onBack}>←</button>
-          <h2>Итоговый тест — Урок {lessonId}</h2>
+          <h2>Итоговый тест — {lessonLabel(lessonId)}</h2>
         </div>
 
         <div className="card result-card">
@@ -124,11 +149,11 @@ export default function FinalTest({ lessonId, onBack }) {
     <div>
       <div className="header">
         <button className="back-btn" onClick={onBack}>←</button>
-        <h2>Итоговый тест — Урок {lessonId}</h2>
+        <h2>Итоговый тест — {lessonLabel(lessonId)}</h2>
       </div>
 
       <p className="text-secondary text-sm mb-8">
-        {pool.length} слов в уроке {lessonId}
+        {pool.length} {lessonId === ALL_LESSONS_ID ? 'слов во всём курсе' : `слов в уроке ${lessonId}`}
       </p>
 
       <div className="progress-bar">
