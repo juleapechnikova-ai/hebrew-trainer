@@ -1,19 +1,32 @@
 import { useState, useMemo } from 'react'
-import { getVerbsByBinyan, shuffle, normalize } from '../data/helpers'
-import pastTenseData from '../data/past-tense.json'
+import {
+  getVerbsByFilter,
+  verbFilterLabel,
+  shuffle,
+  normalize,
+  filterPastTenseByBinyans,
+  pastBinyansLabel,
+} from '../data/helpers'
 import VerbSentenceFill from './VerbSentenceFill'
+import PastBinyanSelect from './PastBinyanSelect'
+import PastModeSelect from './PastModeSelect'
 
-export default function VerbsExercise({ binyan, onBack }) {
-  const verbs = useMemo(() => shuffle(getVerbsByBinyan(binyan)), [binyan])
+export default function VerbsExercise({ binyan, paalGroup = null, onBack }) {
+  const verbs = useMemo(
+    () => shuffle(getVerbsByFilter(binyan, paalGroup)),
+    [binyan, paalGroup]
+  )
+  const filterTitle = verbFilterLabel(binyan, paalGroup)
   const [mode, setMode] = useState(null)
   const [direction, setDirection] = useState('mixed')
+  const [pastBinyans, setPastBinyans] = useState(null)
 
   if (!mode) {
     return (
       <div>
         <div className="header">
           <button className="back-btn" onClick={onBack}>←</button>
-          <h2>Глаголы {binyan === 'all' ? '— все' : `— ${binyan}`}</h2>
+          <h2>Глаголы — {filterTitle}</h2>
         </div>
         <p className="text-secondary text-sm mb-8">{verbs.length} глаголов</p>
 
@@ -42,13 +55,17 @@ export default function VerbsExercise({ binyan, onBack }) {
             <div className="icon">✅</div>
             <div className="label">Тест</div>
           </div>
-          <div className="mode-tile" onClick={() => setMode('past-pairs')}>
+          <div className="mode-tile" onClick={() => setMode('past-binyan-select')}>
             <div className="icon">🔗</div>
             <div className="label">Прошедшее время</div>
           </div>
-          <div className="mode-tile" onClick={() => setMode('sentence-fill')}>
+          <div className="mode-tile" onClick={() => setMode('sentence-fill-present')}>
             <div className="icon">✏️</div>
-            <div className="label">Предложения (ב)</div>
+            <div className="label">Настоящее (ב)</div>
+          </div>
+          <div className="mode-tile" onClick={() => setMode('sentence-fill-past')}>
+            <div className="icon">📝</div>
+            <div className="label">Прошедшее (ב)</div>
           </div>
         </div>
       </div>
@@ -57,8 +74,64 @@ export default function VerbsExercise({ binyan, onBack }) {
 
   if (mode === 'flashcards') return <VerbFlashcards verbs={verbs} direction={direction} onBack={() => setMode(null)} />
   if (mode === 'quiz') return <VerbQuiz verbs={verbs} direction={direction} onBack={() => setMode(null)} />
-  if (mode === 'past-pairs') return <VerbPastPairs onBack={() => setMode(null)} />
-  if (mode === 'sentence-fill') return <VerbSentenceFill binyan={binyan} onBack={() => setMode(null)} />
+  if (mode === 'past-binyan-select') {
+    return (
+      <PastBinyanSelect
+        onStart={binyans => {
+          setPastBinyans(binyans)
+          setMode('past-mode-select')
+        }}
+        onBack={() => setMode(null)}
+      />
+    )
+  }
+  if (mode === 'past-mode-select' && pastBinyans?.length) {
+    return (
+      <PastModeSelect
+        binyans={pastBinyans}
+        onPairs={() => setMode('past-pairs')}
+        onSentences={() => setMode('past-sentence-fill')}
+        onBack={() => setMode('past-binyan-select')}
+      />
+    )
+  }
+  if (mode === 'past-pairs' && pastBinyans?.length) {
+    return (
+      <VerbPastPairs
+        binyans={pastBinyans}
+        onBack={() => setMode('past-mode-select')}
+      />
+    )
+  }
+  if (mode === 'past-sentence-fill' && pastBinyans?.length) {
+    return (
+      <VerbSentenceFill
+        binyans={pastBinyans}
+        pastOnly
+        onBack={() => setMode('past-mode-select')}
+      />
+    )
+  }
+  if (mode === 'sentence-fill-present') {
+    return (
+      <VerbSentenceFill
+        binyan={binyan}
+        paalGroup={paalGroup}
+        presentOnly
+        onBack={() => setMode(null)}
+      />
+    )
+  }
+  if (mode === 'sentence-fill-past') {
+    return (
+      <VerbSentenceFill
+        binyan={binyan}
+        paalGroup={paalGroup}
+        pastOnly
+        onBack={() => setMode(null)}
+      />
+    )
+  }
   return null
 }
 
@@ -288,8 +361,12 @@ const PRONOUN_RU = {
   'אתם': 'вы', 'הם/הן': 'они'
 }
 
-function VerbPastPairs({ onBack }) {
-  const allVerbs = useMemo(() => shuffle([...pastTenseData]), [])
+function VerbPastPairs({ binyans, onBack }) {
+  const allVerbs = useMemo(
+    () => shuffle(filterPastTenseByBinyans(binyans)),
+    [binyans]
+  )
+  const binyanHint = pastBinyansLabel(binyans)
   const [verbIdx, setVerbIdx] = useState(0)
 
   const verb = allVerbs[verbIdx]
@@ -313,6 +390,19 @@ function VerbPastPairs({ onBack }) {
     setSelectedRight(null)
     setMatched(new Set())
     setWrongFlash(null)
+  }
+
+  if (!allVerbs.length) {
+    return (
+      <div>
+        <div className="header">
+          <button className="back-btn" onClick={onBack}>←</button>
+          <h2>Прошедшее время — Пары</h2>
+        </div>
+        <p className="text-secondary">Нет глаголов для выбранных биньянов.</p>
+        <button type="button" className="btn btn-secondary mt-16" onClick={onBack}>Назад</button>
+      </div>
+    )
   }
 
   if (verbIdx >= allVerbs.length) {
@@ -371,9 +461,13 @@ function VerbPastPairs({ onBack }) {
   return (
     <div>
       <div className="header">
-        <button className="back-btn" onClick={onBack}>←</button>
+        <button type="button" className="back-btn" onClick={onBack}>←</button>
         <h2>Прошедшее время — Пары</h2>
       </div>
+
+      {binyanHint ? (
+        <p className="text-secondary text-sm mb-8">{binyanHint}</p>
+      ) : null}
 
       <div className="progress-bar">
         <div className="progress-bar-fill" style={{ width: `${((verbIdx + 1) / allVerbs.length) * 100}%` }} />

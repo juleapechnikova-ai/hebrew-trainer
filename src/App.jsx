@@ -8,12 +8,14 @@ import Pairs from './components/Pairs'
 import Voice from './components/Voice'
 import FinalTest from './components/FinalTest'
 import VerbsHome from './components/VerbsHome'
+import PaalGroupSelect from './components/PaalGroupSelect'
 import VerbsExercise from './components/VerbsExercise'
 import AdjectivesHome from './components/AdjectivesHome'
 import AdjectiveSentenceFill from './components/AdjectiveSentenceFill'
 import AdjectivePairs from './components/AdjectivePairs'
 import RepetitionLessonSelect from './components/RepetitionLessonSelect'
 import RepetitionTest from './components/RepetitionTest'
+import MyWordsHome from './components/MyWordsHome'
 import { applyDailyVisit } from './data/helpers'
 
 export default function App() {
@@ -22,6 +24,7 @@ export default function App() {
   const [repetitionLessonIds, setRepetitionLessonIds] = useState(null)
   const [direction, setDirection] = useState('mixed')
   const [verbBinyan, setVerbBinyan] = useState('all')
+  const [verbPaalGroup, setVerbPaalGroup] = useState(null)
   const [streak, setStreak] = useState(() => ({ currentStreak: 0, maxStreak: 0 }))
 
   useEffect(() => {
@@ -32,6 +35,7 @@ export default function App() {
   function goLessons() { setScreen('lessons') }
   function goVerbs() { setScreen('verbs-home') }
   function goAdjectives() { setScreen('adjectives-home') }
+  function goMyWords() { setScreen('my-words-home') }
 
   function selectLesson(id) {
     setLessonId(id)
@@ -45,9 +49,31 @@ export default function App() {
 
   function selectMode(mode) { setScreen(mode) }
 
-  function selectBinyan(b) {
-    setVerbBinyan(b)
+  function selectVerbBinyan(binyan, paalGroup = null) {
+    setVerbBinyan(binyan)
+    setVerbPaalGroup(paalGroup)
+    if (binyan === 'פעל' && paalGroup === null) {
+      setScreen('verbs-paal-groups')
+    } else {
+      setScreen('verbs-exercise')
+    }
+  }
+
+  function selectPaalGroup(group) {
+    setVerbPaalGroup(group)
     setScreen('verbs-exercise')
+  }
+
+  function backFromVerbsExercise() {
+    if (verbBinyan === 'פעל' && verbPaalGroup === null) {
+      setScreen('verbs-paal-groups')
+    } else {
+      goVerbs()
+    }
+  }
+
+  function backFromPaalGroups() {
+    goVerbs()
   }
 
   function backFromModeSelect() {
@@ -83,6 +109,7 @@ export default function App() {
           onRepetition={goRepetition}
           onVerbs={goVerbs}
           onAdjectives={goAdjectives}
+          onMyWords={goMyWords}
           streakCurrent={streak.currentStreak}
           streakMax={streak.maxStreak}
         />
@@ -119,9 +146,22 @@ export default function App() {
     case 'final-test':
       return <FinalTest lessonId={lessonId} onBack={() => selectLesson(lessonId)} />
     case 'verbs-home':
-      return <VerbsHome onSelect={selectBinyan} onBack={goHome} />
+      return <VerbsHome onSelect={selectVerbBinyan} onBack={goHome} />
+    case 'verbs-paal-groups':
+      return (
+        <PaalGroupSelect
+          onSelect={selectPaalGroup}
+          onBack={backFromPaalGroups}
+        />
+      )
     case 'verbs-exercise':
-      return <VerbsExercise binyan={verbBinyan} onBack={goVerbs} />
+      return (
+        <VerbsExercise
+          binyan={verbBinyan}
+          paalGroup={verbPaalGroup}
+          onBack={backFromVerbsExercise}
+        />
+      )
     case 'adjectives-home':
       return (
         <AdjectivesHome
@@ -136,6 +176,8 @@ export default function App() {
       )
     case 'adjectives-pairs':
       return <AdjectivePairs onBack={() => setScreen('adjectives-home')} />
+    case 'my-words-home':
+      return <MyWordsHome onBack={goHome} />
     case 'repetition-select':
       return (
         <RepetitionLessonSelect
@@ -153,6 +195,7 @@ export default function App() {
           onRepetition={goRepetition}
           onVerbs={goVerbs}
           onAdjectives={goAdjectives}
+          onMyWords={goMyWords}
           streakCurrent={streak.currentStreak}
           streakMax={streak.maxStreak}
         />
@@ -165,6 +208,7 @@ export default function App() {
           onRepetition={goRepetition}
           onVerbs={goVerbs}
           onAdjectives={goAdjectives}
+          onMyWords={goMyWords}
           streakCurrent={streak.currentStreak}
           streakMax={streak.maxStreak}
         />

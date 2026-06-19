@@ -219,37 +219,16 @@ export default function AdjectiveSentenceFill({ onBack }) {
       </div>
 
       <div className="card" style={{ padding: '20px 16px' }}>
-        <div className="big-text he" style={{ fontSize: '1.35rem', lineHeight: 1.6, textAlign: 'right' }}>
-          {selected === null ? (
-            <>
-              <span style={{ direction: 'rtl', fontFamily: 'var(--font-he)', unicodeBidi: 'bidi-override' }}>{parts[0]}</span>
-              <span
-                style={{
-                  display: 'inline-block',
-                  minWidth: '2.2em',
-                  borderBottom: '2px dashed var(--border)',
-                  margin: '0 6px',
-                  verticalAlign: 'bottom',
-                }}
-              >
-                {' '}
-              </span>
-              <span style={{ direction: 'rtl', fontFamily: 'var(--font-he)', unicodeBidi: 'bidi-override' }}>{parts[1] || ''}</span>
-            </>
-          ) : (
-            <span
-              style={{
-                direction: 'rtl',
-                fontFamily: 'var(--font-he)',
-                unicodeBidi: 'bidi-override',
-                display: 'block',
-              }}
-            >
-              <span>{parts[0]}</span>
-              <strong style={{ color: 'var(--accent, #2563eb)', fontWeight: 700, margin: '0 4px' }}>{correct}</strong>
-              <span>{parts[1] || ''}</span>
-            </span>
-          )}
+        <div className="sentence-fill-block he">
+          <p className="sentence-fill-line">
+            {parts[0]}
+            {selected === null ? (
+              <span className="sentence-gap" aria-hidden="true" />
+            ) : (
+              <strong className="sentence-answer">{correct}</strong>
+            )}
+            {parts[1] || ''}
+          </p>
         </div>
         {selected !== null && sentenceRu ? (
           <p

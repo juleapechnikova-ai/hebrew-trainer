@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from 'react'
-import { shuffle } from '../data/helpers'
+import { shuffle, buildRootPaalGroupMap } from '../data/helpers'
 import pastTenseData from '../data/past-tense.json'
 import presentByRoot from '../data/verb-present-by-root.json'
 import levelBConfig from '../data/verb-roots-level-b.json'
@@ -27,17 +27,27 @@ function buildSentencePresent() {
   return `היום הוא ${GAP} כאן.`
 }
 
-function makeChoices(correct, pastEntry, presentHe, otherPastEntries) {
+/** @param {'past'|'present'|'mixed'} tenseMode */
+function makeChoices(correct, pastEntry, presentHe, otherPastEntries, tenseMode = 'mixed') {
   const wrong = []
   const pushWrong = f => {
     if (f && f !== correct && !wrong.includes(f)) wrong.push(f)
   }
-  for (const f of Object.values(pastEntry.forms)) pushWrong(f)
-  pushWrong(presentHe)
+  if (tenseMode !== 'present') {
+    for (const f of Object.values(pastEntry.forms)) pushWrong(f)
+  }
+  if (tenseMode !== 'past') {
+    pushWrong(presentHe)
+  }
   for (const op of shuffle([...otherPastEntries])) {
-    for (const f of Object.values(op.forms)) {
-      pushWrong(f)
-      if (wrong.length >= 30) break
+    if (tenseMode !== 'present') {
+      for (const f of Object.values(op.forms)) {
+        pushWrong(f)
+        if (wrong.length >= 30) break
+      }
+    }
+    if (tenseMode !== 'past') {
+      pushWrong(presentByRoot[op.root])
     }
     if (wrong.length >= 30) break
   }
@@ -73,16 +83,29 @@ const HEB_SUBJ_TO_RU = {
   הן: 'они',
 }
 
-function buildOneQuestion(entries, pastLevelB, slotIndex) {
+function resolveTenseMode({ pastOnly, presentOnly }) {
+  if (pastOnly) return 'past'
+  if (presentOnly) return 'present'
+  return 'mixed'
+}
+
+function buildOneQuestion(entries, pastLevelB, slotIndex, { pastOnly = false, presentOnly = false } = {}) {
   if (!entries.length) return null
+  const tenseMode = resolveTenseMode({ pastOnly, presentOnly })
   const pastEntry = entries[slotIndex % entries.length]
   const presentHe = presentByRoot[pastEntry.root]
   const otherPast = pastLevelB.filter(p => p.root !== pastEntry.root)
 
   const rootPrompts = sentencePrompts[pastEntry.root]
+  const pool =
+    tenseMode === 'past'
+      ? (rootPrompts || []).filter(p => p.mode === 'past')
+      : tenseMode === 'present'
+        ? (rootPrompts || []).filter(p => p.mode === 'present')
+        : rootPrompts
   const picked =
-    rootPrompts?.length &&
-    rootPrompts[Math.floor(Math.random() * rootPrompts.length)]
+    pool?.length &&
+    pool[Math.floor(Math.random() * pool.length)]
 
   let s = ''
   let corr = ''
@@ -100,21 +123,35 @@ function buildOneQuestion(entries, pastLevelB, slotIndex) {
   }
 
   if (!s) {
-    const usePast = Math.random() < 0.55
-    if (usePast) {
+    if (tenseMode === 'past') {
       const pronoun = PRONOUNS[Math.floor(Math.random() * PRONOUNS.length)]
       corr = pastEntry.forms[pronoun]
       const pUse = corr ? pronoun : 'הוא'
       corr = corr || pastEntry.forms.הוא
       pUsePast = pUse
       s = buildSentencePast(pUse)
-    } else {
+    } else if (tenseMode === 'present') {
       corr = presentHe
       s = buildSentencePresent()
+    } else {
+      const usePast = Math.random() < 0.55
+      if (usePast) {
+        const pronoun = PRONOUNS[Math.floor(Math.random() * PRONOUNS.length)]
+        corr = pastEntry.forms[pronoun]
+        const pUse = corr ? pronoun : 'הוא'
+        corr = corr || pastEntry.forms.הוא
+        pUsePast = pUse
+        s = buildSentencePast(pUse)
+      } else {
+        corr = presentHe
+        s = buildSentencePresent()
+      }
     }
   }
 
-  const ch = makeChoices(corr, pastEntry, presentHe, otherPast)
+  // Варианты как в учебнике: настоящее + прошедшее (и для наст., и для прош. вопросов)
+  const choiceMode = pastOnly || presentOnly ? 'mixed' : tenseMode
+  const ch = makeChoices(corr, pastEntry, presentHe, otherPast, choiceMode)
 
   return {
     sentence: s,
@@ -125,25 +162,54 @@ function buildOneQuestion(entries, pastLevelB, slotIndex) {
   }
 }
 
-export default function VerbSentenceFill({ binyan, onBack }) {
+export default function VerbSentenceFill({
+  binyan,
+  paalGroup = null,
+  binyans = null,
+  pastOnly = false,
+  presentOnly = false,
+  onBack,
+}) {
   const pastLevelB = useMemo(
     () => pastTenseData.filter(p => LEVEL_B_ROOTS.has(p.root)),
     []
   )
 
+  const rootPaalGroup = useMemo(() => buildRootPaalGroupMap(presentByRoot), [])
+
+  const title = pastOnly
+    ? 'Прошедшее (ב)'
+    : presentOnly
+      ? 'Настоящее (ב)'
+      : LEVEL_TITLE
+
   const entries = useMemo(() => {
-    const list = pastLevelB.filter(p => p.binyan === binyan || binyan === 'all')
+    if (binyans?.length) {
+      const set = new Set(binyans)
+      return pastLevelB.filter(p => set.has(p.binyan))
+    }
+    let list = pastLevelB.filter(p => p.binyan === binyan || binyan === 'all')
+    if (binyan === 'פעל' && paalGroup) {
+      list = list.filter(p => p.binyan === 'פעל' && rootPaalGroup[p.root] === paalGroup)
+    }
     return list.filter(p => presentByRoot[p.root])
-  }, [binyan, pastLevelB])
+  }, [binyan, paalGroup, binyans, pastLevelB, rootPaalGroup])
 
   const [idx, setIdx] = useState(0)
   const [selected, setSelected] = useState(null)
   const [answers, setAnswers] = useState([])
 
+  const questionPool = useMemo(() => {
+    if (pastOnly || presentOnly) return entries
+    return pastLevelB
+  }, [pastOnly, presentOnly, pastLevelB, entries])
+
   const questions = useMemo(() => {
     if (!entries.length) return []
-    return Array.from({ length: 20 }, (_, i) => buildOneQuestion(entries, pastLevelB, i))
-  }, [entries, pastLevelB])
+    return Array.from({ length: 20 }, (_, i) =>
+      buildOneQuestion(entries, questionPool, i, { pastOnly, presentOnly })
+    )
+  }, [entries, questionPool, pastOnly, presentOnly])
 
   const q = questions[idx]
   const sentence = q?.sentence ?? ''
@@ -193,9 +259,9 @@ export default function VerbSentenceFill({ binyan, onBack }) {
       <div>
         <div className="header">
           <button className="back-btn" onClick={onBack}>←</button>
-          <h2>{LEVEL_TITLE}</h2>
+          <h2>{title}</h2>
         </div>
-        <p className="text-secondary">Нет глаголов уровня ב для выбранного биньяна.</p>
+        <p className="text-secondary">Нет глаголов уровня ב для выбранного фильтра.</p>
         <button className="btn btn-secondary mt-16" onClick={onBack}>Назад</button>
       </div>
     )
@@ -208,10 +274,12 @@ export default function VerbSentenceFill({ binyan, onBack }) {
       <div>
         <div className="header">
           <button className="back-btn" onClick={onBack}>←</button>
-          <h2>{LEVEL_TITLE}</h2>
+          <h2>{title}</h2>
         </div>
         <div className="card result-card">
-          <p className="text-secondary">Результат · ב · 20 предложений</p>
+          <p className="text-secondary">
+            Результат · {pastOnly ? 'прошедшее' : presentOnly ? 'настоящее' : 'ב'} · 20 предложений
+          </p>
           <div className={`score ${pct >= 80 ? 'good' : pct >= 50 ? 'ok' : 'bad'}`}>{pct}%</div>
           <p className="text-secondary text-sm mt-8">✓ {correctCount} · ✗ {answers.length - correctCount}</p>
         </div>
@@ -229,11 +297,16 @@ export default function VerbSentenceFill({ binyan, onBack }) {
     <div>
       <div className="header">
         <button className="back-btn" onClick={onBack}>←</button>
-        <h2>{LEVEL_TITLE}</h2>
+        <h2>{title}</h2>
       </div>
 
       <p className="text-secondary text-sm mb-8">
-        {levelBConfig.labelRu}. Вставьте глагол в нужной форме; в вариантах — настоящее и прошедшее, разные лица.
+        {levelBConfig.labelRu}.{' '}
+        {pastOnly
+          ? 'Вставьте глагол в прошедшем времени; в вариантах — настоящее и прошедшее (как в учебнике).'
+          : presentOnly
+            ? 'Вставьте глагол в настоящем времени; в вариантах — настоящее и прошедшее (как в учебнике).'
+            : 'Вставьте глагол в нужной форме; в вариантах — настоящее и прошедшее, разные лица.'}
       </p>
 
       <div className="progress-bar">
@@ -265,37 +338,16 @@ export default function VerbSentenceFill({ binyan, onBack }) {
       </div>
 
       <div className="card" style={{ padding: '20px 16px' }}>
-        <div className="big-text he" style={{ fontSize: '1.35rem', lineHeight: 1.6, textAlign: 'right' }}>
-          {selected === null ? (
-            <>
-              <span style={{ direction: 'rtl', fontFamily: 'var(--font-he)', unicodeBidi: 'bidi-override' }}>{parts[0]}</span>
-              <span
-                style={{
-                  display: 'inline-block',
-                  minWidth: '2.2em',
-                  borderBottom: '2px dashed var(--border)',
-                  margin: '0 6px',
-                  verticalAlign: 'bottom',
-                }}
-              >
-                {' '}
-              </span>
-              <span style={{ direction: 'rtl', fontFamily: 'var(--font-he)', unicodeBidi: 'bidi-override' }}>{parts[1] || ''}</span>
-            </>
-          ) : (
-            <span
-              style={{
-                direction: 'rtl',
-                fontFamily: 'var(--font-he)',
-                unicodeBidi: 'bidi-override',
-                display: 'block',
-              }}
-            >
-              <span>{parts[0]}</span>
-              <strong style={{ color: 'var(--accent, #2563eb)', fontWeight: 700, margin: '0 4px' }}>{correct}</strong>
-              <span>{parts[1] || ''}</span>
-            </span>
-          )}
+        <div className="sentence-fill-block he">
+          <p className="sentence-fill-line">
+            {parts[0]}
+            {selected === null ? (
+              <span className="sentence-gap" aria-hidden="true" />
+            ) : (
+              <strong className="sentence-answer">{correct}</strong>
+            )}
+            {parts[1] || ''}
+          </p>
         </div>
         {selected !== null && sentenceRu ? (
           <p

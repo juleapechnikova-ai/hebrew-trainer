@@ -1,5 +1,7 @@
 import lessonsRaw from './lessons.json'
 import verbsRaw from './verbs.json'
+import pastTenseRaw from './past-tense.json'
+import myWordsRaw from './my-words.json'
 
 /** Режим тренировки по всему словарю (все ключи из lessons.json). */
 export const ALL_LESSONS_ID = 'all'
@@ -10,8 +12,43 @@ export const LESSONS = Object.entries(lessonsRaw)
   .sort((a, b) => a.id - b.id)
 
 export const VERBS = verbsRaw
+export const PAST_TENSE = pastTenseRaw
 
-export const BINYANS = [...new Set(VERBS.map(v => v.binyan))].sort()
+/** Порядок как в «Глаголы с удовольствием». */
+export const BINYAN_ORDER = ['פעל', 'פיעל', 'הפעיל', 'התפעל']
+
+/** Подгруппы внутри פעל. */
+export const PAAL_GROUPS = ['שלמים', 'עו"י', 'ל"י', 'פ"י']
+
+export const PAAL_GROUP_LABELS = {
+  'שלמים': 'שלמים — без слабых букв',
+  'עו"י': 'עו״י — ו/י в корне',
+  'ל"י': 'ל״י — ל в корне',
+  'פ"י': 'פ״י — י в первой позиции',
+}
+
+export const BINYANS = BINYAN_ORDER.filter(b => VERBS.some(v => v.binyan === b))
+
+function sortVerbs(list) {
+  return [...list].sort((a, b) => {
+    const bi = BINYAN_ORDER.indexOf(a.binyan) - BINYAN_ORDER.indexOf(b.binyan)
+    if (bi !== 0) return bi
+    if (a.binyan === 'פעל') {
+      const gi = PAAL_GROUPS.indexOf(a.group || '') - PAAL_GROUPS.indexOf(b.group || '')
+      if (gi !== 0) return gi
+    }
+    if (a.page !== b.page) return a.page - b.page
+    return a.he.localeCompare(b.he, 'he')
+  })
+}
+
+export function countVerbsByBinyan(binyan) {
+  return VERBS.filter(v => v.binyan === binyan).length
+}
+
+export function countVerbsByPaalGroup(group) {
+  return VERBS.filter(v => v.binyan === 'פעל' && v.group === group).length
+}
 
 export function getPool(lessonId) {
   return LESSONS
@@ -48,7 +85,67 @@ export function lessonLabel(lessonId) {
 }
 
 export function getVerbsByBinyan(binyan) {
-  return binyan === 'all' ? VERBS : VERBS.filter(v => v.binyan === binyan)
+  return getVerbsByFilter(binyan, null)
+}
+
+/**
+ * @param {'all'|string} binyan
+ * @param {string|null} group — только для פעל; null = весь биньян
+ */
+export function getVerbsByFilter(binyan, group = null) {
+  if (binyan === 'all') return sortVerbs(VERBS)
+  let list = VERBS.filter(v => v.binyan === binyan)
+  if (binyan === 'פעל' && group) list = list.filter(v => v.group === group)
+  return sortVerbs(list)
+}
+
+export function verbFilterLabel(binyan, group = null) {
+  if (binyan === 'all') return 'все глаголы'
+  if (binyan === 'פעל' && group) {
+    const hint = PAAL_GROUP_LABELS[group] || group
+    return `פעל · ${hint}`
+  }
+  if (binyan === 'פעל') return 'פעל · все подгруппы'
+  return binyan
+}
+
+/** Корень (прош. врем.) → подгруппа פעל по verbs.json + presentByRoot. */
+export function getPastTenseBinyanStats() {
+  const counts = {}
+  for (const v of PAST_TENSE) {
+    counts[v.binyan] = (counts[v.binyan] || 0) + 1
+  }
+  return BINYAN_ORDER.filter(b => counts[b]).map(binyan => ({
+    binyan,
+    count: counts[binyan],
+  }))
+}
+
+export function filterPastTenseByBinyans(binyans) {
+  const set = new Set(binyans)
+  return PAST_TENSE.filter(v => set.has(v.binyan))
+}
+
+export function pastBinyansLabel(binyans) {
+  const available = getPastTenseBinyanStats().map(s => s.binyan)
+  if (!binyans?.length) return ''
+  if (binyans.length === available.length) return 'все биньяны'
+  return binyans.join(', ')
+}
+
+export function buildRootPaalGroupMap(presentByRoot) {
+  const byPresent = new Map()
+  for (const v of VERBS) {
+    if (v.binyan === 'פעל' && v.group) {
+      byPresent.set(normalize(v.he), v.group)
+    }
+  }
+  const out = {}
+  for (const [root, present] of Object.entries(presentByRoot)) {
+    const group = byPresent.get(normalize(present))
+    if (group) out[root] = group
+  }
+  return out
 }
 
 export function shuffle(arr) {
@@ -259,5 +356,71 @@ export function applyDailyVisit() {
   }
   saveStreak(next)
   return { currentStreak, maxStreak }
+}
+
+// ——— Мои слова (фото урока → Ханна → my-words.json) ———
+
+export const MY_WORDS = Array.isArray(myWordsRaw) ? myWordsRaw : []
+
+const MY_WORDS_STATUS_KEY = 'hebrew-trainer-my-words-status'
+
+/** @typedef {'difficult' | 'learned'} MyWordStatus */
+
+export function loadMyWordsStatus() {
+  try {
+    return JSON.parse(localStorage.getItem(MY_WORDS_STATUS_KEY)) || {}
+  } catch {
+    return {}
+  }
+}
+
+function saveMyWordsStatus(map) {
+  localStorage.setItem(MY_WORDS_STATUS_KEY, JSON.stringify(map))
+}
+
+/** Новые слова из JSON по умолчанию «сложно». */
+export function getMyWordStatus(wordId) {
+  const s = loadMyWordsStatus()[wordId]
+  return s === 'learned' ? 'learned' : 'difficult'
+}
+
+export function setMyWordStatus(wordId, status) {
+  const map = loadMyWordsStatus()
+  map[wordId] = status
+  saveMyWordsStatus(map)
+}
+
+export function markMyWordLearned(wordId) {
+  setMyWordStatus(wordId, 'learned')
+}
+
+export function markMyWordDifficult(wordId) {
+  setMyWordStatus(wordId, 'difficult')
+}
+
+export function getMyWordsEnriched() {
+  return MY_WORDS.map(w => ({
+    ...w,
+    status: getMyWordStatus(w.id),
+  }))
+}
+
+export function countMyWordsByStatus() {
+  const all = getMyWordsEnriched()
+  return {
+    total: all.length,
+    difficult: all.filter(w => w.status === 'difficult').length,
+    learned: all.filter(w => w.status === 'learned').length,
+  }
+}
+
+/**
+ * @param {'difficult-only' | 'difficult-and-learned' | 'learned-only'} poolMode
+ */
+export function getMyWordsPool(poolMode) {
+  const all = getMyWordsEnriched()
+  if (poolMode === 'difficult-and-learned') return all
+  if (poolMode === 'learned-only') return all.filter(w => w.status === 'learned')
+  return all.filter(w => w.status === 'difficult')
 }
 

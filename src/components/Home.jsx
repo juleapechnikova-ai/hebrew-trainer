@@ -1,4 +1,4 @@
-export default function Home({ onLessons, onAllLessons, onRepetition, onVerbs, onAdjectives, streakCurrent, streakMax }) {
+export default function Home({ onLessons, onAllLessons, onRepetition, onVerbs, onAdjectives, onMyWords, streakCurrent, streakMax }) {
   return (
     <div className="home-screen">
       <div className="home-brand">
@@ -28,6 +28,10 @@ export default function Home({ onLessons, onAllLessons, onRepetition, onVerbs, o
         <button type="button" className="nav-card nav-card--surface" onClick={onAdjectives}>
           <span className="nav-card__icon" aria-hidden>📝</span>
           <span className="nav-card__label">Прилагательные</span>
+        </button>
+        <button type="button" className="nav-card nav-card--surface" onClick={onMyWords}>
+          <span className="nav-card__icon" aria-hidden>⭐</span>
+          <span className="nav-card__label">Мои слова</span>
         </button>
       </nav>
 

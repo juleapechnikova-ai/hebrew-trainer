@@ -196,6 +196,32 @@ body::before {
   justify-content: center;
 }
 
+/* Предложение с одним пропуском — один RTL-поток, не flex-колонки */
+.sentence-fill-block {
+  padding: 12px 8px;
+}
+.sentence-fill-line {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.65;
+  direction: rtl;
+  text-align: right;
+  font-family: var(--font-he);
+  unicode-bidi: plaintext;
+}
+.sentence-gap {
+  display: inline-block;
+  min-width: 2.75em;
+  border-bottom: 2px dashed var(--border);
+  margin: 0 0.25em;
+  vertical-align: baseline;
+}
+.sentence-answer {
+  color: var(--primary);
+  font-weight: 700;
+  margin: 0 0.15em;
+}
+
 .mode-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -221,6 +247,76 @@ body::before {
 .mode-tile:active { transform: scale(0.98); }
 .mode-tile .icon { font-size: 1.85rem; margin-bottom: 8px; }
 .mode-tile .label { font-weight: 600; font-size: 0.92rem; color: var(--text); }
+.mode-tile--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.my-words-stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.my-words-stat {
+  font-size: 0.88rem;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.my-words-stat--difficult strong { color: #c45c26; }
+.my-words-stat--learned strong { color: #2d7a4f; }
+.my-words-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: lowercase;
+}
+.my-words-badge--difficult {
+  background: rgba(196, 92, 38, 0.12);
+  color: #c45c26;
+}
+.my-words-badge--learned {
+  background: rgba(45, 122, 79, 0.12);
+  color: #2d7a4f;
+}
+
+.my-words-list__title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+.my-words-list__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
+}
+.my-words-list__he {
+  font-size: 1.15rem;
+  font-weight: 600;
+  flex: 1 1 auto;
+}
+.my-words-list__ru {
+  color: var(--text-secondary);
+  flex: 1 1 100%;
+  font-size: 0.92rem;
+}
+.my-words-list__lesson {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-left: auto;
+}
 
 .option-btn {
   width: 100%;
