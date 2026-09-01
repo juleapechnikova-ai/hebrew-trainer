@@ -10,6 +10,7 @@ import {
 import VerbSentenceFill from './VerbSentenceFill'
 import PastBinyanSelect from './PastBinyanSelect'
 import PastModeSelect from './PastModeSelect'
+import VerbPairs from './VerbPairs'
 
 export default function VerbsExercise({ binyan, paalGroup = null, onBack }) {
   const verbs = useMemo(
@@ -55,8 +56,12 @@ export default function VerbsExercise({ binyan, paalGroup = null, onBack }) {
             <div className="icon">✅</div>
             <div className="label">Тест</div>
           </div>
-          <div className="mode-tile" onClick={() => setMode('past-binyan-select')}>
+          <div className="mode-tile" onClick={() => setMode('pairs')}>
             <div className="icon">🔗</div>
+            <div className="label">Пары</div>
+          </div>
+          <div className="mode-tile" onClick={() => setMode('past-binyan-select')}>
+            <div className="icon">⏪</div>
             <div className="label">Прошедшее время</div>
           </div>
           <div className="mode-tile" onClick={() => setMode('sentence-fill-present')}>
@@ -74,6 +79,9 @@ export default function VerbsExercise({ binyan, paalGroup = null, onBack }) {
 
   if (mode === 'flashcards') return <VerbFlashcards verbs={verbs} direction={direction} onBack={() => setMode(null)} />
   if (mode === 'quiz') return <VerbQuiz verbs={verbs} direction={direction} onBack={() => setMode(null)} />
+  if (mode === 'pairs') {
+    return <VerbPairs verbs={verbs} filterTitle={filterTitle} onBack={() => setMode(null)} />
+  }
   if (mode === 'past-binyan-select') {
     return (
       <PastBinyanSelect
